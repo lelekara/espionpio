@@ -3,19 +3,18 @@ import { Button } from "./ui/button";
 import { createClient } from "@/lib/supabase/server";
 import { LogoutButton } from "./logout-button";
 import { SpyButton } from "./spy-button";
+import { AuthButtonClient } from "./authButtonClient";
 
 export async function AuthButton() {
   const supabase = await createClient();
+  const { data } = await supabase.auth.getUser();
+  const user = data?.user;
 
-  // You can also use getUser() which will be slower.
-  const { data } = await supabase.auth.getClaims();
-
-  const user = data?.claims;
 
   return user ? (
     <div className="flex items-center gap-4">
-      Hey, {user.email}!
-      <SpyButton />
+      Hey, {user.user_metadata?.display_name || user.email}!
+      <AuthButtonClient />
       <LogoutButton />
     </div>
   ) : (
