@@ -8,7 +8,6 @@ import {
   Card,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
@@ -31,32 +30,30 @@ export default async function ProtectedPage() {
   const users = usersData?.users || [];
 
   return (
-    <div className="flex-1 w-full flex flex-col gap-12">
-      <Card>
+    <div className="container mx-auto px-2 py-4 max-w-7xl">
+      <Card className="w-full shadow-xl">
         <CardHeader>
-          <CardTitle className="text-lg font-bold text-center">
-            {" "}
-            Dashboard Admin
-          </CardTitle>
-          <CardDescription className="text-center">
-            Ici vous pouvez gérer les scout et leurs missions.
-          </CardDescription>
+          <CardTitle className="text-2xl font-bold text-center">Dashboard Admin</CardTitle>
+          <CardDescription className="text-center text-base">Gérez les scouts et leurs missions.</CardDescription>
         </CardHeader>
         <CardContent>
-          <div>
-            <Button className="w-full mb-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <Button className="w-full">
               <Link href="/protected/admin/mission">Créer une mission</Link>
+            </Button>
+              <Button variant="default" className="w-full">
+              <Link href="/protected/admin/shop">modifer la boutique</Link>
             </Button>
           </div>
           <div>
+             <Button variant="outline" className="w-full">
+              <Link href="/protected">Retour</Link>
+            </Button>
+          </div>
+          <div className="mt-4">
             <UserAdminList users={users} />
           </div>
         </CardContent>
-        <CardFooter>
-          <Button variant="outline" className="w-full">
-            <Link href="/protected">Retour</Link>
-          </Button>
-        </CardFooter>
       </Card>
     </div>
   );

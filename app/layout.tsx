@@ -10,7 +10,7 @@ const defaultUrl = process.env.VERCEL_URL
 export const metadata: Metadata = {
   metadataBase: new URL(defaultUrl),
   title: "Scout Pionner",
-  description: "The fastest way to build apps with Next.js and Supabase",
+  description: "Application de gestion des scouts et de leurs missions",
 };
 
 const geistSans = Geist({

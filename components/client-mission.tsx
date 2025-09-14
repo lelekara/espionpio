@@ -46,7 +46,6 @@ export default function ScoutMissionsPage() {
 
   return (
     <div className="max-w-lg mx-auto p-4">
-      <h1 className="text-xl font-bold mb-4">Mes missions</h1>
       <ul className="space-y-3">
         {missions.map((um) => (
           <li key={um.id} className="border p-3 rounded shadow">

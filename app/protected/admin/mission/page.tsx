@@ -85,11 +85,14 @@ export default function NewMissionPage() {
       if (assignError) throw assignError;
 
       alert("Mission créée et assignée !");
+      // Réinitialiser le formulaire
       setTitle("");
       setDescription("");
       setRewardPoints(0);
       setRewardCoins(0);
       setSelectedScouts([]);
+      // retour à la page admin
+      window.location.href = "/protected/admin";
     } catch (err) {
       console.error("Erreur :", err);
       alert("Impossible de créer la mission");

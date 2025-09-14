@@ -23,21 +23,21 @@ export function UserAdminList({ users }: { users: any[] }) {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {users.map((user) => (
-        <div key={user.id} className="border p-4 rounded">
-          <div><b>Email:</b> {user.email}</div>
-          <div><b>Totem:</b> {user.user_metadata?.display_name || "-"}</div>
-          <div><b>Rôle:</b> {user.app_metadata?.role || "-"}</div>
-          <div className="mt-2">
-            <Button className="w-full"><Link href={`admin/profiles/${user.id}`}>Voir le profil</Link></Button></div>
+        <div key={user.id} className="border p-4 rounded shadow bg-background flex flex-col justify-between">
+          <div className="mb-2">
+            <div className="font-bold text-lg mb-1">{user.user_metadata?.display_name || "-"}</div>
+            <div className="text-sm text-muted-foreground mb-1">{user.email}</div>
+            <div className="mb-2"><span className="font-semibold">Rôle:</span> {user.app_metadata?.role || "-"}</div>
+          </div>
+          <Button className="w-full mb-2"><Link href={`admin/profiles/${user.id}`}>Voir le profil</Link></Button>
           {error && loading === user.id && (
-            <div className="text-red-500 mt-2">{error}
-            </div>
+            <div className="text-red-500 mt-2">{error}</div>
           )}
-           <div className="flex gap-2 mt-2">
-            <Button className="w-full" onClick={() => handlePromote(user.id, "scout")}>rôle Scout</Button>
-            <Button className="w-full" onClick={() => handlePromote(user.id, "chef")}>rôle Chef</Button>
+          <div className="flex gap-2 mt-2">
+            <Button className="flex-1" onClick={() => handlePromote(user.id, "scout")}>rôle Scout</Button>
+            <Button variant="destructive" className="flex-1" onClick={() => handlePromote(user.id, "chef")}>rôle Chef</Button>
           </div>
         </div>
       ))}

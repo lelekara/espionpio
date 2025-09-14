@@ -2,7 +2,6 @@ import Link from "next/link";
 import { Button } from "./ui/button";
 import { createClient } from "@/lib/supabase/server";
 import { LogoutButton } from "./logout-button";
-import { SpyButton } from "./spy-button";
 import { AuthButtonClient } from "./authButtonClient";
 
 export async function AuthButton() {
@@ -12,8 +11,7 @@ export async function AuthButton() {
 
 
   return user ? (
-    <div className="flex items-center gap-4">
-      Hey, {user.user_metadata?.display_name || user.email}!
+    <div className="flex items-center gap-2">
       <AuthButtonClient />
       <LogoutButton />
     </div>
