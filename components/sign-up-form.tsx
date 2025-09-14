@@ -81,7 +81,7 @@ export function SignUpForm({
               </div>
               <div className="grid gap-2">
                 <div className="flex items-center">
-                  <Label htmlFor="display-name">Nom d'affichage</Label>
+                  <Label htmlFor="display-name">Nom d&apos;affichage</Label>
                 </div>
                 <Input
                   id="display-name"

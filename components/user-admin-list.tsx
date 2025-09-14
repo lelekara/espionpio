@@ -3,7 +3,18 @@ import { useState } from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
 
-export function UserAdminList({ users }: { users: any[] }) {
+type User = {
+  id: string;
+  email?: string;
+  user_metadata?: {
+    display_name?: string;
+  };
+  app_metadata?: {
+    role?: string;
+  };
+};
+
+export function UserAdminList({ users }: { users: User[] }) {
   const [loading, setLoading] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 

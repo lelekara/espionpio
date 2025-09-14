@@ -66,7 +66,7 @@ const ShopPage = () => {
     const { data: user } = await supabase.from("profiles").select("coins, points").eq("id", userId).single()
 
     // 2. Vérifier les fonds
-    if (user.points < item.price_points || user.coins < item.price_coins) {
+    if (!user || user.points < item.price_points || user.coins < item.price_coins) {
         alert("Fonds insuffisants pour cet achat.")
       return
     }
@@ -90,6 +90,16 @@ const ShopPage = () => {
     await supabase.from("purchases").insert({ user_id: userId, item_id: item.id, quantity: 1 })
 
     alert("Achat réussi !")
+    // Mettre à jour l'état local
+    setUser({
+      points: user.points - item.price_points,
+      coins: user.coins - item.price_coins,
+    })
+    setData((prevData) =>
+      prevData.map((i) =>
+        i.id === item.id ? { ...i, quantity: i.quantity - 1 } : i
+      )
+    )
   }
 
   const sortedData = [...data].sort((a, b) => a.name.localeCompare(b.name))

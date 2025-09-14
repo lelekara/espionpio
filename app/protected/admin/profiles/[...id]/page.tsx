@@ -2,21 +2,43 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "next/navigation";
 import { createClient } from "@/lib/supabase/client";
-import { Card, CardHeader, CardContent, CardFooter } from "@/components/ui/card";
+import { Card, CardHeader, CardContent} from "@/components/ui/card";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { Car } from "lucide-react";
+
+type Profile = {
+  id: string;
+  display_name: string;
+  email?: string;
+  username?: string;
+  avatar?: string;
+  role?: string;
+  points?: number;
+  coins?: number;
+  reward_points?: number;
+  reward_coins?: number;
+};
+
+type Mission = {
+  id: string;
+  mission_id: string;
+  title?: string;
+  description?: string;
+  reward_points?: number;
+  reward_coins?: number;
+  status: string;
+}; 
 
 const ProfileScout = () => {
   const supabase = createClient();
   const params = useParams();
   const userId = Array.isArray(params.id) ? params.id[0] : params.id;
-  const [profile, setProfile] = useState<any>(null);
-  const [missions, setMissions] = useState<any[]>([]);
-  const [missionDetails, setMissionDetails] = useState<any>(null);
+  const [profile, setProfile] = useState<Profile | null>(null);
+  const [missions, setMissions] = useState<Mission[]>([]);
+  const [missionDetails, setMissionDetails] = useState<Mission | null>(null);
 
   useEffect(() => {
     if (!userId) return;
@@ -94,7 +116,17 @@ const ProfileScout = () => {
   };
 
   //6. Historique des achats
-  const [purchaseHistory, setPurchaseHistory] = useState<any[]>([]);
+  type Purchase = {
+    id: string;
+    user_id: string;
+    item_id: string;
+    quantity: number;
+    created_at: string;
+    shop_items?: {
+      name: string;
+    };
+  };
+  const [purchaseHistory, setPurchaseHistory] = useState<Purchase[]>([]);
 
   useEffect(() => {
     const fetchPurchaseHistory = async () => {
@@ -158,7 +190,7 @@ const ProfileScout = () => {
       </Card>
       <Card className="w-full max-w-md shadow-md mb-8">
         <CardHeader>
-          <h3 className="text-lg font-bold">Missions de l'utilisateur</h3>
+          <h3 className="text-lg font-bold">Missions de l&apos;utilisateur</h3>
         </CardHeader>
         <CardContent>
           {missions.length > 0 ? (
@@ -216,7 +248,7 @@ const ProfileScout = () => {
       </Card>
       <Card className="w-full max-w-md shadow-md mb-8 mt-8">
         <CardHeader className="flex flex-col items-center gap-2">
-          <h3 className="text-lg font-bold">Historique d'achats</h3>
+          <h3 className="text-lg font-bold">Historique d&apos;achats</h3>
         </CardHeader>
         <CardContent>
           {purchaseHistory.length > 0 ? (

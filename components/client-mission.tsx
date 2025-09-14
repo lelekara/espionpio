@@ -5,8 +5,19 @@ import { createClient } from "@/lib/supabase/client";
 
 const supabase = createClient();
 
+type Mission = {
+  id: number;
+  status: string;
+  missions: {
+    title: string;
+    description: string;
+    reward_points: number;
+    reward_coins: number;
+  } | null;
+};
+
 export default function ScoutMissionsPage() {
-  const [missions, setMissions] = useState<any[]>([]);
+  const [missions, setMissions] = useState<Mission[]>([]);
 
   useEffect(() => {
     // Charger missions déjà assignées
@@ -20,7 +31,21 @@ export default function ScoutMissionsPage() {
         .eq("user_id", (await supabase.auth.getUser()).data.user?.id);
 
       if (error) console.error(error);
-      else setMissions(data || []);
+      else setMissions(
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (data || []).map((item: any) => ({
+          id: item.id,
+          status: item.status,
+          missions: item.missions
+            ? {
+                title: item.missions.title,
+                description: item.missions.description,
+                reward_points: item.missions.reward_points,
+                reward_coins: item.missions.reward_coins,
+              }
+            : null,
+        }))
+      );
     };
 
     fetchMissions();
@@ -33,7 +58,14 @@ export default function ScoutMissionsPage() {
         { event: "INSERT", schema: "public", table: "user_missions" },
         (payload) => {
           console.log("Nouvelle mission !", payload.new);
-          setMissions((prev) => [...prev, payload.new]);
+          setMissions((prev) => [
+            ...prev,
+            {
+              id: payload.new.id,
+              status: payload.new.status,
+              missions: payload.new.missions ?? null,
+            } as Mission,
+          ]);
           alert("Nouvelle mission reçue !");
         }
       )

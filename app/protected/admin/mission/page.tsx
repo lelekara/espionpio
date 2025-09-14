@@ -11,12 +11,19 @@ import { Badge } from "@/components/ui/badge";
 import { Loader2, Users, Coins, FileCheck, Pen, Star } from "lucide-react";
 const supabase = createClient();
 
+
+type Scout = {
+  id: string;
+  display_name: string;
+};
+
+
 export default function NewMissionPage() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [rewardPoints, setRewardPoints] = useState(0);
   const [rewardCoins, setRewardCoins] = useState(0);
-  const [scouts, setScouts] = useState<any[]>([]);
+  const [scouts, setScouts] = useState<Scout[]>([]);
   const [selectedScouts, setSelectedScouts] = useState<string[]>([]);
   const [loading, setLoading] = useState(false);
   const [isChef, setIsChef] = useState<boolean | null>(null);

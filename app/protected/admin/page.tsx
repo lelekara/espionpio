@@ -25,9 +25,16 @@ export default async function ProtectedPage() {
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.SUPABASE_SERVICE_ROLE_KEY!
   );
-  const { data: usersData, error: usersError } =
+  const { data: usersData } =
     await supabaseAdmin.auth.admin.listUsers();
-  const users = usersData?.users || [];
+  // Map users to the expected shape if necessary
+  const users =
+    usersData?.users?.map((user) => ({
+      ...user,
+      app_metadata: {
+        role: user.app_metadata?.role,
+      },
+    })) || [];
 
   return (
     <div className="container mx-auto px-2 py-4 max-w-7xl">
