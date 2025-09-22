@@ -34,7 +34,7 @@ export default function Home() {
           <p>
             Powered by{" "}
             <a
-              href="https://supabase.com/?utm_source=create-next-app&utm_medium=template&utm_term=nextjs"
+              href="https://lelekara.github.io/portfolio"
               target="_blank"
               className="font-bold hover:underline"
               rel="noreferrer"
