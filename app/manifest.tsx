@@ -11,12 +11,12 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: '#ffffffff', // blanc (cohérent avec le design)
     icons: [
       {
-        src: '/logo-pino.png',
+        src: '/icon-192x192.png',
         sizes: '192x192',
         type: 'image/png',
       },
       {
-        src: '/logo-pino.png',
+        src: '/icon-512x512.png',
         sizes: '512x512',
         type: 'image/png',
       },
