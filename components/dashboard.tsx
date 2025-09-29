@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { createClient } from "@/lib/supabase/server";
-import { User, BadgeCheck, Store, CircleCheckBig } from "lucide-react";
+import { User, BadgeCheck, Store, CircleCheckBig, Lightbulb } from "lucide-react";
 import Link from "next/link";
 import AdminButton from "./admin-button";
 import ScoutMissionsPage from "./client-mission";
@@ -74,6 +74,10 @@ export async function Dashboard() {
         <Button size="lg" className="flex items-center gap-2 text-lg font-semibold dark:bg-slate-800 dark:text-white">
           <Store className="w-5 h-5" />
           <Link href="/protected/shop">Boutique</Link>
+        </Button>
+        <Button size="lg" className="flex items-center gap-2 text-lg font-semibold dark:bg-slate-800 dark:text-white">
+          <Lightbulb className="w-5 h-5" />
+          <Link href="/protected/ideas">idées </Link>
         </Button>
         {user?.app_metadata?.role === "chef" && (
           <AdminButton />

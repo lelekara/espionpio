@@ -52,7 +52,10 @@ export default async function ProtectedPage() {
               <Link href="/protected/admin/shop">modifer la boutique</Link>
             </Button>
           </div>
-          <div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <Button className="w-full">
+              <Link href="/protected/admin/ideas">Voir les idées des scouts</Link>
+            </Button>
              <Button variant="outline" className="w-full">
               <Link href="/protected">Retour</Link>
             </Button>
