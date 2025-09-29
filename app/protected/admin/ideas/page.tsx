@@ -17,15 +17,21 @@ export default function IdeasAdminPage() {
 
   useEffect(() => {
     const supabase = createClient();
-    // Récupère toutes les idées + le profil du scout si non anonyme
     supabase
       .from('ideas')
       .select('id, content, is_anonymous, created_at, scout_id, profiles:scout_id(display_name)')
       .order('created_at', { ascending: false })
       .then(({ data, error }) => {
         if (!error && data) {
-          // profiles est retourné comme tableau, on le convertit en objet ou null
-          const mapped = data.map((idea: any) => ({
+          // On précise le type ici au lieu de any
+          const mapped = data.map((idea: {
+            id: string;
+            content: string;
+            is_anonymous: boolean;
+            created_at: string;
+            scout_id: string | null;
+            profiles?: { display_name: string }[] | { display_name: string } | null;
+          }) => ({
             ...idea,
             profiles: Array.isArray(idea.profiles) ? idea.profiles[0] || null : idea.profiles || null,
           }));

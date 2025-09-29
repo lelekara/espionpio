@@ -60,7 +60,7 @@ export default function FormsIdeas() {
     <div className="max-w-lg mx-auto p-4 sm:p-8">
       <div className="bg-card rounded-xl shadow-lg p-6 sm:p-8">
         <h2 className="text-2xl font-bold mb-2 text-center text-primary">Propose ton idée !</h2>
-        <p className="text-muted-foreground mb-6 text-center">Partage une idée pour le groupe. Tu peux choisir d'être anonyme.</p>
+        <p className="text-muted-foreground mb-6 text-center">Partage une idée pour le groupe. Tu peux choisir d&apos;être anonyme.</p>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
             <FormField
